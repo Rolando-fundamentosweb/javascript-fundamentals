@@ -65,7 +65,7 @@ Su sintaxis es ...
   Eliminar elementos duplicados de un array
   . La clase Set elimina los elementos duplicados
 */
-const numbers = [-12,2,3,23,43,2,3];
+const numbers = [-12, 2, 3, 23, 43, 2, 3];
 console.log(new Set(numbers)); // -12,2,3,23,43
 // pasamos a un array la lista de tipo Set
 console.log([...new Set(numbers)]); // [-12, 2, 3, 23, 43]
@@ -83,6 +83,38 @@ const obj2 = {
 };
 console.log(obj2); // {prop1: 1, prop2: 2, prop3: 3}
 
+/*
+ El spread operator suele ser usado para clonar un objeto y que el objeto resultante tenga una copia
+ de todos los elementos. De esta forma los valores modificados en los atributos del objeto original
+ no se verán reflejados en el objeto clon.
+ */
+const casa1 = {
+  name: 'tu hogar 1',
+  email: {
+    av: 1
+  }
+}
+const casa2 = { ...casa1 };
+casa1.name = 'tu hogar 2';
+casa1.email.av = 2;
+
+console.log(casa1.name); // Tu hogar 2
+console.log(casa2.name); // Tu hogar 1
+
+console.log(casa1.email.av); // 2
+console.log(casa2.email.av); // 2
+
+/*
+Se obserbó que tanto el objeto clonado como el original tenía  el valor '2' en la propiedad 'av'.
+Esto sucede porque el spread (...) solo copia los elementos del primer nivel. Asi que el valor 
+de referencia de los elementos anidados es el mismo.
+Esto se soluciona haciendo una clonacion (copia) profunda mediante structuredClone()
+*/
+const casa3 = structuredClone(casa1);
+casa1.email.av = 3;
+
+console.log(casa1.email.av); // 3
+console.log(casa3.email.av); // 2
 
 
 
